@@ -1,6 +1,5 @@
 # python3 tree_height.py
 # 4 -1 4 1 1
-
 import sys
 import threading
 
