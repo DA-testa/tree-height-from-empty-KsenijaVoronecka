@@ -7,19 +7,21 @@ import threading
 
 def compute_height(n, parents):
     max_height = 0
-    if n < 0:
-        return max_height
     # Write this function
-    child = n
-    # Your code here
-    for i in range(len(parents)):
-        child = parents[child]
-        max_height += 1
-        if child == -1:
-            break
+    for i in range(n):
+        height = 0
+        child = i
+        # Your code here
+        for j in range(len(parents)):
+            child = parents[child]
+            height += 1
+            if child == -1:
+                break
 
-    # print(max_height)
-    return max_height if max_height > compute_height(n-1, parents) else compute_height(n-1, parents)
+        if max_height < height:
+            max_height = height
+ 
+    return max_height
 
 
 def main():
@@ -60,7 +62,7 @@ def main():
     values = list(values)
 
     # call the function and output it's result
-    print("result: ", compute_height(elements_count - 1, values))
+    print("result: ", compute_height(elements_count, values))
     
     # account for github input inprecision
     
