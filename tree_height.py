@@ -2,7 +2,7 @@
 # 4 -1 4 1 1
 import sys
 import threading
-import numpy
+# import numpy
 
 
 def compute_height(n, parents):
@@ -58,7 +58,7 @@ def main():
     # separate values with space, split these values in an array
     values = values.split()
     values = list(map(int, values))
-    values = numpy.array(values)
+    # values = numpy.array(values)
 
     # call the function and output it's result
     print("result: ", compute_height(elements_count, values))
