@@ -2,6 +2,7 @@
 # 4 -1 4 1 1
 import sys
 import threading
+import numpy
 
 
 def compute_height(n, parents):
@@ -10,7 +11,7 @@ def compute_height(n, parents):
     for child in range(n):
         height = 0
         # Your code here
-        for j in range(len(parents)):
+        while True:
             child = parents[child]
             height += 1
             if child == -1:
@@ -56,8 +57,8 @@ def main():
 
     # separate values with space, split these values in an array
     values = values.split()
-    values = map(int, values)
-    values = list(values)
+    values = list(map(int, values))
+    values = numpy.array(values)
 
     # call the function and output it's result
     print("result: ", compute_height(elements_count, values))
