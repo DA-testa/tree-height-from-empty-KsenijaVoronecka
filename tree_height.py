@@ -22,6 +22,10 @@ def compute_height(n, parents):
             
             if level_array[child] != 0:
                 level_array[steps_array[len(steps_array)-1]] = level_array[steps_array[len(steps_array)-1]] + level_array[child]
+                steps_array.remove(steps_array[len(steps_array)-1])
+                if len(steps_array) != 0:
+                    for step in range(len(steps_array)):
+                        level_array[steps_array[step]] += 1
                 break
 
             elements_array[child] = 1
@@ -44,6 +48,9 @@ def compute_height(n, parents):
     #     if level_array[i] > max_height:
     #         max_height = level_array[i]
  
+    print(level_array)
+    print(elements_array)
+    print(steps_array)
     return max(level_array)
 
 
