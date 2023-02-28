@@ -7,20 +7,44 @@ import numpy
 
 def compute_height(n, parents):
     max_height = 0
+    level_array = numpy.zeros(n, dtype='i')
+    elements_array = numpy.zeros(n, dtype='i')
+
     # Write this function
     for child in range(n):
-        height = 0
+
+        if elements_array[child] == 1:
+            continue
+        
+        steps_array = []
         # Your code here
         while True:
+            
+            if level_array[child] != 0:
+                level_array[steps_array[len(steps_array)-1]] = level_array[steps_array[len(steps_array)-1]] + level_array[child]
+                break
+
+            elements_array[child] = 1
+            level_array[child] = 1
+            
+            if len(steps_array) != 0:
+                for step in range(len(steps_array)):
+                    level_array[steps_array[step]] += 1
+
+            # steps_array = numpy.append(steps_array, child)
+            steps_array.append(child)
             child = parents[child]
-            height += 1
+
             if child == -1:
                 break
 
-        if max_height < height:
-            max_height = height
+    # max_height = max(level_array)
+    # max_height = 0
+    # for i in range(len(level_array)):
+    #     if level_array[i] > max_height:
+    #         max_height = level_array[i]
  
-    return max_height
+    return max(level_array)
 
 
 def main():
