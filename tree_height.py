@@ -4,16 +4,28 @@ import sys
 import threading
 import numpy
 
-
 def compute_height(n, parents):
-    levels = {-1: 0}
+    counted = [0] * n
+    levels = [0] * n
 
-    while n >= len(levels):
-        for child, i in enumerate(parents):
-            if i in levels:
-                levels[child] = levels[i] + 1
+    def find_level(place):
+        if parents[place] == -1:
+            counted[place] = 1
+            return 1
+        
+        if counted[place] == 1:
+            return levels[place]
+        
+        counted[place] = 1
+        levels[place] = find_level(parents[place]) + 1
+
+        return levels[place]
     
-    return max(levels.values())
+    for place in range(n):
+        if counted[place] != 1:
+            levels[place] = find_level(place)
+
+    return max(levels)
 
 
 def main():
@@ -49,8 +61,7 @@ def main():
         return
 
     # separate values with space, split these values in an array
-    values = values.split()
-    values = list(map(int, values))
+    values = list(map(int, values.split()))
     values = numpy.array(values)
 
     # call the function and output it's result
