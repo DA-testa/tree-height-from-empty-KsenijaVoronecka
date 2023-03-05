@@ -2,56 +2,17 @@
 # 4 -1 4 1 1
 import sys
 import threading
-import numpy
 
 
 def compute_height(n, parents):
-    max_height = 0
-    level_array = numpy.zeros(n, dtype='i')
-    elements_array = numpy.zeros(n, dtype='i')
+    levels = {-1: 0}
 
-    # Write this function
-    for child in range(n):
-
-        if elements_array[child] == 1:
-            continue
-        
-        steps_array = []
-        # Your code here
-        while True:
-            
-            if level_array[child] != 0:
-                level_array[steps_array[len(steps_array)-1]] = level_array[steps_array[len(steps_array)-1]] + level_array[child]
-                steps_array.remove(steps_array[len(steps_array)-1])
-                if len(steps_array) != 0:
-                    for step in range(len(steps_array)):
-                        level_array[steps_array[step]] += 1
-                break
-
-            elements_array[child] = 1
-            level_array[child] = 1
-            
-            if len(steps_array) != 0:
-                for step in range(len(steps_array)):
-                    level_array[steps_array[step]] += 1
-
-            # steps_array = numpy.append(steps_array, child)
-            steps_array.append(child)
-            child = parents[child]
-
-            if child == -1:
-                break
-
-    # max_height = max(level_array)
-    # max_height = 0
-    # for i in range(len(level_array)):
-    #     if level_array[i] > max_height:
-    #         max_height = level_array[i]
- 
-    print(level_array)
-    print(elements_array)
-    print(steps_array)
-    return max(level_array)
+    while n >= len(levels):
+        for child, i in enumerate(parents):
+            if i in levels:
+                levels[child] = levels[i] + 1
+    
+    return max(levels.values())
 
 
 def main():
